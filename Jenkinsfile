@@ -14,7 +14,7 @@ pipeline{
         stage('clone'){
             steps{
                 git url: "https://github.com/lahari104/multi-branch.git",
-                    branch: "develop"
+                    branch: "qa"
             }
         }
         stage('build and deploy'){
