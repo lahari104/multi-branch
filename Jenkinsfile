@@ -6,7 +6,7 @@ pipeline{
         pollSCM('* * * * *')
     }
     environment{
-        DOCKER_HUB_CREDENTIALS = credentials('docker_hub_PAT')
+        // DOCKER_HUB_CREDENTIALS = credentials('docker_hub_PAT')
         IMAGE_NAME             = "lahari23/multi-containers"
         IMAGE_TAG              = "${env.BUILD_NUMBER}"
     }
@@ -20,7 +20,9 @@ pipeline{
         stage('build and deploy'){
             steps{
                 sh 'docker build -t "${env.IMAGE_NAME}:${env.IMAGE_TAG}" .'
-                sh 'echo ${DOCKER_HUB_CREDENTIALS_PSW} | docker login -u ${DOCKER_HUB_CREDENTIALS_USR} --password-stdin'
+                sh 'docker push "${env.IMAGE_NAME}:${env.IMAGE_TAG}"'
+                sh 'docker container run -d -P ${env.IMAGE_NAME}:${env.IMAGE_TAG}'
+                // sh 'echo ${DOCKER_HUB_CREDENTIALS_PSW} | docker login -u ${DOCKER_HUB_CREDENTIALS_USR} --password-stdin'
                 sh 'docker container ls -a'
             }
         }
