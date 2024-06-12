@@ -17,14 +17,13 @@ pipeline{
                     branch: "main"
             }
         }
-        stage('build and deploy'){
-            steps{
-                sh 
-                """
-                docker build -t "${env.IMAGE_NAME}:${env.IMAGE_TAG}" .
-                docker push "${env.IMAGE_NAME}:${env.IMAGE_TAG}"
-                docker run -d -P "${env.IMAGE_NAME}:${env.IMAGE_TAG}
-                docker container ls -a
+        stage('build and deploy') {
+            steps {
+                sh """
+                    docker build -t "${env.IMAGE_NAME}:${env.IMAGE_TAG}" .
+                    docker push "${env.IMAGE_NAME}:${env.IMAGE_TAG}"
+                    docker run -d -P "${env.IMAGE_NAME}:${env.IMAGE_TAG}"
+                    docker container ls -a
                 """
             }
         }
