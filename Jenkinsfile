@@ -19,7 +19,7 @@ pipeline{
         }
         stage('build and deploy'){
             steps{
-                sh 'docker build -t "${env.IMAGE_NAME}:${env.IMAGE_TAG }" .'
+                sh 'docker build -t "${env.IMAGE_NAME}:${env.IMAGE_TAG}" .'
                 sh 'echo ${DOCKER_HUB_CREDENTIALS_PSW} | docker login -u ${DOCKER_HUB_CREDENTIALS_USR} --password-stdin'
                 sh 'docker container ls -a'
             }
